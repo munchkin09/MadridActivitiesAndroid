@@ -1,0 +1,53 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "es.carlosdevops.madridshops"
+        minSdkVersion 17
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+    }
+    buildTypes {
+        debug {
+            buildConfigField "String", "MS_SERVER_URL", "\"http://madrid-shops.com/json_new/getShops.php\""
+        }
+        release {
+            buildConfigField "String", "MS_SERVER_URL", "\"http://madrid-shops.com/json_new/getShops.php\""
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation project(':domain')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "com.android.support:appcompat-v7:$appcompat_version"
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support:design:26.1.0'
+    implementation 'com.android.support:support-v4:26.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    //For the 64k limit! link -> https://developer.android.com/studio/build/multidex.html
+    implementation 'com.android.support:multidex:1.0.0'
+
+    // link: https://developers.google.com/android/guides/setup
+    implementation 'com.google.android.gms:play-services-maps:11.8.0'
+
+    //picasso
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+
+    //https://developer.android.com/training/material/lists-cards.html?hl=es-419
+    implementation 'com.android.support:recyclerview-v7:26.0.+'
+
+}
