@@ -7,9 +7,11 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -23,29 +25,35 @@ import es.carlosdevops.domain.interactor.getallshops.GetAllShopsInteractor
 import es.carlosdevops.domain.interactor.getallshops.GetAllShopsInteractorImpl
 import es.carlosdevops.domain.model.Shops
 import es.carlosdevops.madridshops.R
-import es.carlosdevops.madridshops.fragment.ListFragment
+import es.carlosdevops.madridshops.adapter.ShopsAdapter
 
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_shops.*
+import kotlinx.android.synthetic.main.content_main.*
 
-class MainActivity : AppCompatActivity() {
+class ShopsActivity : AppCompatActivity() {
 
-    var listFragment : ListFragment? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_shops)
         setSupportActionBar(toolbar)
 
         Log.e("Activity","OnCreate()")
 
         setupMap()
-        setupList()
-
-        //val fm : FragmentManager = supportFragmentManager.getFragment()
     }
 
-    private fun setupList() {
-        listFragment = supportFragmentManager.findFragmentById(R.id.activity_main_list_fragment) as ListFragment
+    private fun setupList(shops: Shops) {
+
+        var shopsAdapter = ShopsAdapter(shops)
+        activity_main_list_fragment.layoutManager = LinearLayoutManager(this)
+        shopsAdapter.onClickListener = View.OnClickListener {
+            val position = activity_main_list_fragment.getChildAdapterPosition(it)
+
+        }
+        activity_main_list_fragment.adapter = shopsAdapter
+
     }
 
     private fun setupMap() {
@@ -53,7 +61,8 @@ class MainActivity : AppCompatActivity() {
         var getAllShopsInteractor : GetAllShopsInteractor = GetAllShopsInteractorImpl(this)
         getAllShopsInteractor.execute(success = object: SuccessCompletion<Shops> {
             override fun successCompletion(e: Shops) {
-                Log.d("App", "Tiendas " + e.count())
+                Log.d("setupMAP",e.get(0).toString())
+                setupList(e)
                 initalizeMap(e)
 
                 }

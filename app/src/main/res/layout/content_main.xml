@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="es.carlosdevops.madridshops.activity.MainActivity"
-    tools:showIn="@layout/activity_main"
+    tools:context="es.carlosdevops.madridshops.activity.ShopsActivity"
+    tools:showIn="@layout/activity_shops"
     android:orientation="vertical">
 
     <fragment

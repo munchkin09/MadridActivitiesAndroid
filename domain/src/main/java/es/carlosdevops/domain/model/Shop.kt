@@ -1,5 +1,8 @@
 package es.carlosdevops.domain.model
 
+import java.io.Serializable
+
+
 data class Shop(val id: Long,
                 val name:String,
                 val address: String,
@@ -8,8 +11,7 @@ data class Shop(val id: Long,
                 val gps_lon: Double,
                 val img: String,
                 val logo_img: String,
-                val opening_hours: String) {
-}
+                val opening_hours: String) : Serializable
 
 class Shops(var shops: MutableList<Shop>): Aggregate<Shop> {
     override fun count(): Int {

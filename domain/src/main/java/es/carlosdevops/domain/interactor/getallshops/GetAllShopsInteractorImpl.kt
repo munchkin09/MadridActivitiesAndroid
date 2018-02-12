@@ -1,6 +1,7 @@
 package es.carlosdevops.domain.interactor.getallshops
 
 import android.content.Context
+import android.util.Log
 import es.carlosdevops.domain.interactor.ErrorCompletion
 import es.carlosdevops.domain.interactor.SuccessCompletion
 import es.carlosdevops.domain.model.Shop
@@ -19,6 +20,7 @@ class GetAllShopsInteractorImpl(context: Context) : GetAllShopsInteractor {
     private val repository : Repository = RepositoryImpl(weakContext.get()!!)
     override fun execute(success: SuccessCompletion<Shops>, error: ErrorCompletion) {
         repository.getAllShops(successCompletion = {
+            Log.d("executeInteractor", it[0].toString())
             val shops : Shops = entityMapper(it)
             success.successCompletion(shops)
         },errorCompletion = {
@@ -35,7 +37,6 @@ class GetAllShopsInteractorImpl(context: Context) : GetAllShopsInteractor {
             val gpsLat = convertStringCoordinateToDouble(it.gps_lat)
             val gpsLon = convertStringCoordinateToDouble(it.gps_lon)
             val shop = Shop(it.id,it.name,it.address,it.description,gpsLat,gpsLon,it.img,it.logo_img,it.opening_hours)
-
             tempList.add(shop)
         }
 
