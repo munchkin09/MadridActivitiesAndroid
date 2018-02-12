@@ -40,7 +40,7 @@ class RepositoryImpl(context: Context): Repository {
                 val parser = JsonEntitiesParser()
                 val responseEntity = parser.parse<ShopResponseEntity>(e)
                 cache.storeAllShops(responseEntity.result, successCompletion = {
-                    successCompletion(responseEntity.result)
+                    cache.getAllShops(successCompletion,errorCompletion)
                 }, errorCompletion = {
                     errorCompletion("Algo ha pasado")
                 })

@@ -10,9 +10,6 @@ import es.carlosdevops.repository.ErrorCompletion
 import es.carlosdevops.repository.SuccessCompletion
 import java.lang.ref.WeakReference
 
-/**
- * Created by carlosledesma on 29/1/18.
- */
 internal class GetJsonManagerVolleyImpl(context: Context): GetJsonManager {
 
     var rq : RequestQueue? = null

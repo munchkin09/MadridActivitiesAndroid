@@ -88,7 +88,7 @@ class ShopDAO(dbHelper: DbHelper): DAOPersistable<ShopEntity> {
             return null
         }
         return ShopEntity(
-                cursor.getLong(cursor.getColumnIndex(DBConstants.KEY_SHOP_ID_JSON)),
+                cursor.getLong(cursor.getColumnIndex(DBConstants.KEY_ACTIVITY_ID_JSON)),
                 cursor.getLong((cursor.getColumnIndex(DBConstants.KEY_SHOP_DATABASE_ID))),
                 cursor.getString(cursor.getColumnIndex(DBConstants.KEY_SHOP_NAME)),
                 cursor.getString(cursor.getColumnIndex(DBConstants.KEY_SHOP_ADDRESS)),
@@ -104,7 +104,7 @@ class ShopDAO(dbHelper: DbHelper): DAOPersistable<ShopEntity> {
     fun contentValues(shopEntity: ShopEntity): ContentValues {
         val content = ContentValues()
 
-        content.put(DBConstants.KEY_SHOP_ID_JSON, shopEntity.id)
+        content.put(DBConstants.KEY_ACTIVITY_ID_JSON, shopEntity.id)
         content.put(DBConstants.KEY_SHOP_NAME, shopEntity.name)
         content.put(DBConstants.KEY_SHOP_DESCRIPTION, shopEntity.description)
         content.put(DBConstants.KEY_SHOP_LATITUDE, shopEntity.gps_lat)

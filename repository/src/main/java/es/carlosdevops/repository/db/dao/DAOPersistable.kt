@@ -10,9 +10,9 @@ interface DAOReadOperations<T> {
 }
 
 interface DAOWriteOperation<T> {
-    fun insert(element: ShopEntity): Long
-    fun update(id: Long, element: ShopEntity)
-    fun delete(element: ShopEntity) : Long
+    fun insert(element: T): Long
+    fun update(id: Long, element: T)
+    fun delete(element: T) : Long
     fun delete(id: Long) : Long
     fun deleteAll(): Boolean
 }
