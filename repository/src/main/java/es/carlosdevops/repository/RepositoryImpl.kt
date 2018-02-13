@@ -1,7 +1,6 @@
 package es.carlosdevops.repository
 
 import android.content.Context
-import android.util.Log
 import es.carlosdevops.repository.cache.Cache
 import es.carlosdevops.repository.cache.CacheImpl
 import es.carlosdevops.repository.model.ActivityEntity
@@ -36,7 +35,13 @@ class RepositoryImpl(context: Context): Repository {
     }
 
     override fun getAllActivities(successCompletion: (activities: List<ActivityEntity>) -> Unit, errorCompletion: ErrorClosure) {
-        
+
+        cache.getAllActivities(successCompletion = {
+            successCompletion(it)
+        }, errorCompletion = {
+            populateCacheActivities(successCompletion,errorCompletion)
+        })
+
     }
 
     private fun populateCache(successCompletion: (shops: List<ShopEntity>) -> Unit, errorCompletion: ErrorClosure) {
@@ -48,6 +53,25 @@ class RepositoryImpl(context: Context): Repository {
                 val responseEntity = parser.parse<ResponseEntity<ShopEntity>>(e)
                 cache.storeAllShops(responseEntity.result, successCompletion = {
                     cache.getAllShops(successCompletion,errorCompletion)
+                }, errorCompletion = {
+                    errorCompletion("Algo ha pasado")
+                })
+            }
+        }, error = object : ErrorCompletion {
+
+        })
+
+    }
+
+    private fun populateCacheActivities(successCompletion: (activities: List<ActivityEntity>) -> Unit, errorCompletion: ErrorClosure) {
+
+        val jsonManager : GetJsonManager = GetJsonManagerVolleyImpl(weakContext.get()!!)
+        jsonManager.execute(BuildConfig.MS_SERVER_URL_2, success = object: SuccessCompletion<String> {
+            override fun successCompletion(e: String) {
+                val parser = JsonEntitiesParser()
+                val responseEntity = parser.parse<ResponseEntity<ActivityEntity>>(e)
+                cache.storeAllActivities(responseEntity.result, successCompletion = {
+                    cache.getAllActivities(successCompletion,errorCompletion)
                 }, errorCompletion = {
                     errorCompletion("Algo ha pasado")
                 })
