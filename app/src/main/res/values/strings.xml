@@ -2,8 +2,7 @@
     <string name="app_name">MadridShops</string>
     <string name="action_settings">Settings</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="am_txt_shop">Tiendas</string>
     <string name="am_txt_activities">Actividades</string>
+    <string name="url_am_img_background">https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Puerta_de_Alcalá%2C_Madrid%2C_España%2C_2017-05-18%2C_DD_14.jpg/1200px-Puerta_de_Alcalá%2C_Madrid%2C_España%2C_2017-05-18%2C_DD_14.jpg</string>
 </resources>

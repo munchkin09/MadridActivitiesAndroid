@@ -2,6 +2,7 @@ package es.carlosdevops.madridshops.router
 
 import android.content.Intent
 import es.carlosdevops.domain.model.Shop
+import es.carlosdevops.madridshops.activity.ActivitiesActivity
 import es.carlosdevops.madridshops.activity.MainActivity
 import es.carlosdevops.madridshops.activity.ShopsActivity
 
@@ -21,6 +22,8 @@ class Router {
     }
 
     fun fromMainActivityToActivitiesActivity(activity: MainActivity) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val intent = Intent(activity, ActivitiesActivity::class.java)
+
+        activity.startActivity(intent)
     }
 }
