@@ -14,11 +14,8 @@ import java.lang.ref.WeakReference
 
 class RepositoryImpl(context: Context): Repository {
 
-
-
     private val weakContext = WeakReference<Context>(context)
     private val cache : Cache = CacheImpl(weakContext.get()!!)
-
 
     override fun deleteAllShops(successCompletion: () -> Unit, errorCompletion: ErrorClosure) {
         cache.deleteAllShops(successCompletion, errorCompletion)
