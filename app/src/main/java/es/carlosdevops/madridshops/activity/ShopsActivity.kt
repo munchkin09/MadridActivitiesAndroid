@@ -26,6 +26,7 @@ import es.carlosdevops.domain.interactor.getallshops.GetAllShopsInteractorImpl
 import es.carlosdevops.domain.model.Shops
 import es.carlosdevops.madridshops.R
 import es.carlosdevops.madridshops.adapter.ShopsAdapter
+import es.carlosdevops.madridshops.router.Router
 
 import kotlinx.android.synthetic.main.activity_shops.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -39,7 +40,6 @@ class ShopsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_shops)
         setSupportActionBar(toolbar)
 
-        Log.e("Activity","OnCreate()")
 
         setupMap()
     }
@@ -50,8 +50,8 @@ class ShopsActivity : AppCompatActivity() {
         activity_main_list_fragment.layoutManager = LinearLayoutManager(this)
         shopsAdapter.onClickListener = View.OnClickListener {
             val position = activity_main_list_fragment.getChildAdapterPosition(it)
-
-        }
+            Router().fromShopActivityToDetailShopActivity(this, shops.get(position))
+            }
         activity_main_list_fragment.adapter = shopsAdapter
 
     }
@@ -61,7 +61,6 @@ class ShopsActivity : AppCompatActivity() {
         var getAllShopsInteractor : GetAllShopsInteractor = GetAllShopsInteractorImpl(this)
         getAllShopsInteractor.execute(success = object: SuccessCompletion<Shops> {
             override fun successCompletion(e: Shops) {
-                Log.d("setupMAP",e.get(0).toString())
                 setupList(e)
                 initalizeMap(e)
 
@@ -99,16 +98,14 @@ class ShopsActivity : AppCompatActivity() {
             try {
                 map?.isMyLocationEnabled = true
             } catch (e: SecurityException) {
-                Log.d("App",e.toString())
-            }
+              }
         }
     }
 
     private fun initalizeMap(shops: Shops) {
         val mapFragment = supportFragmentManager.findFragmentById(R.id.activity_main_map_fragment) as SupportMapFragment
         mapFragment.getMapAsync({
-            Log.d("MapFragment", "SUCCESS")
-            map = it
+              map = it
             centerMapInPosition(it,40.416775,-3.703790)
             it.uiSettings.isRotateGesturesEnabled = false
             showUserPosition(this,it)
