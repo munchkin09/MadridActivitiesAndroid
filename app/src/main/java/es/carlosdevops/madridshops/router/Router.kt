@@ -1,11 +1,10 @@
 package es.carlosdevops.madridshops.router
 
 import android.content.Intent
+import es.carlosdevops.domain.model.Activity
 import es.carlosdevops.domain.model.Shop
-import es.carlosdevops.madridshops.activity.ActivitiesActivity
-import es.carlosdevops.madridshops.activity.MainActivity
-import es.carlosdevops.madridshops.activity.ShopDetailActivity
-import es.carlosdevops.madridshops.activity.ShopsActivity
+import es.carlosdevops.madridshops.activity.*
+import es.carlosdevops.utils.INTENT_ACTIVITIES_DETAIL
 import es.carlosdevops.utils.INTENT_SHOP_DETAIL
 
 /**
@@ -13,14 +12,7 @@ import es.carlosdevops.utils.INTENT_SHOP_DETAIL
  */
 
 class Router {
-    fun fromShopActivityToDetailShopActivity(activity: ShopsActivity, shop: Shop) {
-        val intent = Intent(activity,ShopDetailActivity::class.java)
-        intent.putExtra(INTENT_SHOP_DETAIL,shop)
 
-        activity.startActivity(intent)
-
-
-    }
 
     fun fromMainActivityToShopActivity(activity: MainActivity) {
         val intent = Intent(activity,ShopsActivity::class.java)
@@ -32,5 +24,23 @@ class Router {
         val intent = Intent(activity, ActivitiesActivity::class.java)
 
         activity.startActivity(intent)
+    }
+
+    fun fromShopActivityToDetailShopActivity(activity: ShopsActivity, shop: Shop) {
+        val intent = Intent(activity,ShopDetailActivity::class.java)
+        intent.putExtra(INTENT_SHOP_DETAIL,shop)
+
+        activity.startActivity(intent)
+
+
+    }
+
+    fun fromActivitiesActivityToDetailActivitiesActivity(activity: ActivitiesActivity, activityEntity: Activity) {
+        val intent = Intent(activity,ActivitiesDetailActivity::class.java)
+
+        intent.putExtra(INTENT_ACTIVITIES_DETAIL, activityEntity)
+
+        activity.startActivity(intent)
+
     }
 }

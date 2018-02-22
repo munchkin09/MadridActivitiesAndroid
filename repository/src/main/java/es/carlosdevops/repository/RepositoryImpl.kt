@@ -34,7 +34,7 @@ class RepositoryImpl(context: Context): Repository {
     override fun getAllActivities(successCompletion: (activities: List<ActivityEntity>) -> Unit, errorCompletion: ErrorClosure) {
 
         cache.getAllActivities(successCompletion = {
-            successCompletion(it)
+                successCompletion(it)
         }, errorCompletion = {
             populateCacheActivities(successCompletion,errorCompletion)
         })

@@ -5,6 +5,7 @@ import es.carlosdevops.repository.ErrorClosure
 import es.carlosdevops.repository.ErrorCompletion
 import es.carlosdevops.repository.db.DbHelper
 import es.carlosdevops.repository.db.buildDbHelper
+import es.carlosdevops.repository.db.dao.ActivityDAO
 import es.carlosdevops.repository.db.dao.ShopDAO
 import es.carlosdevops.repository.model.ActivityEntity
 import es.carlosdevops.repository.model.ShopEntity
@@ -53,11 +54,26 @@ class CacheImpl(context: Context): Cache {
     }
 
     override fun getAllActivities(successCompletion: (activities: List<ActivityEntity>) -> Unit, errorCompletion: ErrorClosure) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val dbHelper = cacheDbHelper()
+        Thread(Runnable {
+            val activitiesEntity = ActivityDAO(dbHelper).query()
+            MainThread(Runnable {
+                if(activitiesEntity.count() > 0) {
+                    successCompletion(activitiesEntity)
+                } else {
+                    errorCompletion("No activities")
+                }
+            })
+        }).run()
     }
 
     override fun storeAllActivities(activities: List<ActivityEntity>, successCompletion: () -> Unit, errorCompletion: ErrorClosure) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+        Thread(Runnable {
+            activities.forEach {
+                ActivityDAO(cacheDbHelper()).insert(it)
+            }
+        }).run()
     }
 
     private fun cacheDbHelper() : DbHelper {

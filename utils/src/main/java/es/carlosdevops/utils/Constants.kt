@@ -6,5 +6,5 @@ package es.carlosdevops.utils
 
 
 val INTENT_SHOP_DETAIL = "INTENT_SHOP_DETAIL"
-val INTENT_ACTIVITY_DETAIL = "INTENT_ACTIVITY_DETAIL"
+val INTENT_ACTIVITIES_DETAIL = "INTENT_ACTIVITIES_DETAIL"
 val GOOGLE_MAP_URL = "https://maps.googleapis.com/maps/api/staticmap?%25&size=320x220&scale=2&markers="

@@ -9,11 +9,18 @@
     <ImageView
         android:id="@+id/asd_img_shop"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true" />
     <ImageView
         android:id="@+id/asd_img_map"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="150dp"
+        android:adjustViewBounds="true"/>
+    <TextView
+        android:id="@+id/asd_txt_opening"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center" />
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -23,10 +30,4 @@
             android:layout_height="wrap_content" />
 
     </ScrollView>
-    <TextView
-        android:id="@+id/asd_txt_opening"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"/>
-
 </LinearLayout>

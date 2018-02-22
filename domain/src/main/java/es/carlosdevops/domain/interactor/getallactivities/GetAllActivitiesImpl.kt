@@ -1,6 +1,7 @@
 package es.carlosdevops.domain.interactor.getallactivities
 
 import android.content.Context
+import android.util.Log
 import es.carlosdevops.domain.interactor.ErrorCompletion
 import es.carlosdevops.domain.interactor.SuccessCompletion
 import es.carlosdevops.domain.model.Activities
@@ -21,6 +22,7 @@ class GetAllActivitiesImpl(context: Context) : GetAllActivities {
             val activities = entityMapper(it)
             success.successCompletion(activities)
         }, errorCompletion = {
+            Log.d("Error", it)
             error(it)
         })
     }

@@ -23,13 +23,14 @@ import es.carlosdevops.domain.interactor.ErrorCompletion
 import es.carlosdevops.domain.interactor.SuccessCompletion
 import es.carlosdevops.domain.interactor.getallshops.GetAllShopsInteractor
 import es.carlosdevops.domain.interactor.getallshops.GetAllShopsInteractorImpl
+import es.carlosdevops.domain.model.Shop
 import es.carlosdevops.domain.model.Shops
 import es.carlosdevops.madridshops.R
 import es.carlosdevops.madridshops.adapter.ShopsAdapter
 import es.carlosdevops.madridshops.router.Router
 
 import kotlinx.android.synthetic.main.activity_shops.*
-import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.content_main_shops.*
 
 class ShopsActivity : AppCompatActivity() {
 
@@ -42,18 +43,6 @@ class ShopsActivity : AppCompatActivity() {
 
 
         setupMap()
-    }
-
-    private fun setupList(shops: Shops) {
-
-        var shopsAdapter = ShopsAdapter(shops)
-        activity_main_list_fragment.layoutManager = LinearLayoutManager(this)
-        shopsAdapter.onClickListener = View.OnClickListener {
-            val position = activity_main_list_fragment.getChildAdapterPosition(it)
-            Router().fromShopActivityToDetailShopActivity(this, shops.get(position))
-            }
-        activity_main_list_fragment.adapter = shopsAdapter
-
     }
 
     private fun setupMap() {
@@ -70,6 +59,18 @@ class ShopsActivity : AppCompatActivity() {
                     Toast.makeText(baseContext,errorMessage,Toast.LENGTH_SHORT).show()
                 }
             })
+
+    }
+
+    private fun setupList(shops: Shops) {
+
+        var shopsAdapter = ShopsAdapter(shops)
+        activity_main_list_fragment.layoutManager = LinearLayoutManager(this)
+        shopsAdapter.onClickListener = View.OnClickListener {
+            val position = activity_main_list_fragment.getChildAdapterPosition(it)
+            Router().fromShopActivityToDetailShopActivity(this, shops.get(position))
+        }
+        activity_main_list_fragment.adapter = shopsAdapter
 
     }
 
@@ -111,6 +112,13 @@ class ShopsActivity : AppCompatActivity() {
             showUserPosition(this,it)
             addAllPins(shops)
         })
+
+        map?.setOnMarkerClickListener {
+
+            val shop = it.tag as Shop
+            Router().fromShopActivityToDetailShopActivity(this, shop)
+            true
+        }
     }
 
     fun centerMapInPosition(map: GoogleMap, latitude: Double, longitude: Double) {
@@ -139,11 +147,13 @@ class ShopsActivity : AppCompatActivity() {
     fun addAllPins(shops: Shops) {
         for( i in 0 until shops.count()) {
             val shop = shops.get(i)
-            addPin(shop.gps_lat,shop.gps_lon,shop.name)
+            addPin(shop.gps_lat,shop.gps_lon,shop.name,shop)
         }
     }
 
-    fun addPin(latitude: Double,longitude: Double,title: String) {
-        map?.addMarker(MarkerOptions().position(LatLng(latitude,longitude)).title(title))
+    fun addPin(latitude: Double,longitude: Double,title: String,shop: Shop) {
+        map!!.addMarker(MarkerOptions().position(LatLng(latitude,longitude)).title(title))
+                .tag = shop
+
     }
 }
