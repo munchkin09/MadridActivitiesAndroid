@@ -17,7 +17,7 @@ import es.carlosdevops.madridshops.R
  */
 class ActivitiesAdapter(private val mDataset: Activities): RecyclerView.Adapter<ActivitiesAdapter.ViewHolder>() {
 
-    val onClickListener : View.OnClickListener? = null
+    var onClickListener : View.OnClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater
