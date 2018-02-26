@@ -1,9 +1,9 @@
 # MadridActivitiesAndroid
 
 ## Preview
-![alt text](https://imgur.com/a/mPuRb "Initial menu")
-![alt text](https://imgur.com/a/QJr0i "Activities Activity")
-![alt text](https://imgur.com/a/eO3MO "Activities Detail Activity")
+![alt text](https://i.imgur.com/1HQi2O7.png "Initial menu")
+![alt text](https://i.imgur.com/hbYIGaE.png "Activities Activity")
+![alt text](https://i.imgur.com/m2Q6BBe.png "Activities Detail Activity")
 
 
 ## Configuration
