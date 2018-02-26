@@ -15,6 +15,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import es.carlosdevops.domain.interactor.getallactivities.GetAllActivities
 import es.carlosdevops.domain.interactor.getallactivities.GetAllActivitiesImpl
@@ -29,7 +30,8 @@ import es.carlosdevops.madridshops.adapter.ActivitiesAdapter
 import es.carlosdevops.madridshops.router.Router
 import kotlinx.android.synthetic.main.content_main_activities.*
 
-class ActivitiesActivity : AppCompatActivity() {
+class ActivitiesActivity : AppCompatActivity(), GoogleMap.OnInfoWindowClickListener {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,6 +76,7 @@ class ActivitiesActivity : AppCompatActivity() {
             it.uiSettings.isRotateGesturesEnabled = false
             showUserPosition(this,it)
             addAllPins(activities)
+            map?.setOnInfoWindowClickListener(this)
         }
 
     }
@@ -124,6 +127,14 @@ class ActivitiesActivity : AppCompatActivity() {
     fun addPin(latitude: Double,longitude: Double,title: String,activity: Activity) {
         map!!.addMarker(MarkerOptions().position(LatLng(latitude,longitude)).title(title))
                 .tag = activity
+
+
+    }
+
+    override fun onInfoWindowClick(marker: Marker?) {
+
+        Log.d("MAPA",marker?.tag.toString())
+        Router().fromActivitiesActivityToDetailActivitiesActivity(this, marker?.tag as Activity)
 
     }
 }
