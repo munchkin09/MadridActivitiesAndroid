@@ -29,6 +29,8 @@ import es.carlosdevops.domain.model.Shops
 import es.carlosdevops.madridshops.R
 import es.carlosdevops.madridshops.adapter.ShopsAdapter
 import es.carlosdevops.madridshops.router.Router
+import es.carlosdevops.utils.LATITUDE_MADRID
+import es.carlosdevops.utils.LONGITUDE_MADRID
 
 import kotlinx.android.synthetic.main.activity_shops.*
 import kotlinx.android.synthetic.main.content_main_shops.*
@@ -106,7 +108,7 @@ class ShopsActivity : AppCompatActivity(), GoogleMap.OnInfoWindowClickListener {
         val mapFragment = supportFragmentManager.findFragmentById(R.id.activity_main_map_fragment) as SupportMapFragment
         mapFragment.getMapAsync({
               map = it
-            centerMapInPosition(it,40.416775,-3.703790)
+            centerMapInPosition(it, LATITUDE_MADRID, LONGITUDE_MADRID)
             it.uiSettings.isRotateGesturesEnabled = false
             showUserPosition(this,it)
             addAllPins(shops)
